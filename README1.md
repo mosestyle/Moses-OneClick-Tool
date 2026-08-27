@@ -1,7 +1,7 @@
 # Moses OneClick Tool
 A small SteamOS/KDE helper for standalone Windows `.exe` games using **Steam / Proton by default**, with **Smart Automatic / Lutris** available for games that need extra compatibility help.
 
-<img width="663" height="630" alt="image" src="https://github.com/user-attachments/assets/49f695dc-24c1-4582-91dc-03bf8364a71a" />   <img width="548" height="427" alt="image" src="https://github.com/user-attachments/assets/286f9ebf-d08a-466c-81e3-f8fd4580f71d" />
+<img width="658" height="628" alt="image" src="https://github.com/user-attachments/assets/2414a2b2-e97a-43b1-82cc-8638ae9562be" />    <img width="548" height="513" alt="image" src="https://github.com/user-attachments/assets/a4913b8b-b23c-4fdf-9df4-0c52c98f7428" />
 
 ## Features
 
@@ -81,7 +81,7 @@ Then close and reopen Dolphin once so KDE refreshes the Moses OneClick context-m
 
 ## Usage
 
-<img width="398" height="548" alt="image" src="https://github.com/user-attachments/assets/23746d3d-26be-47d8-93bc-556ba6efc248" />
+<img width="370" height="412" alt="image" src="https://github.com/user-attachments/assets/2744a46c-2e04-49a8-b430-bdfc9246488b" />
 
 **Install a new game:** double-click its installer `.exe` **or** open **Moses OneClick Tool → Install Game**. Choose Steam / Proton or Smart Automatic / Lutris and select internal or external storage if needed.
 
