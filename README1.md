@@ -3,7 +3,6 @@ A small SteamOS/KDE helper for standalone Windows `.exe` games using **Steam / P
 
 <img width="663" height="630" alt="image" src="https://github.com/user-attachments/assets/49f695dc-24c1-4582-91dc-03bf8364a71a" />   <img width="548" height="427" alt="image" src="https://github.com/user-attachments/assets/286f9ebf-d08a-466c-81e3-f8fd4580f71d" />
 
-
 ## Features
 
 - **Double-click a Windows `.exe`** → opens the Moses OneClick installer with three choices:
