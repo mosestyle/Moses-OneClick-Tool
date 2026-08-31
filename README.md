@@ -63,7 +63,7 @@ A small SteamOS/KDE helper for standalone Windows `.exe` games using **Steam / P
   - finalizes the Steam shortcut and artwork only after the installation/update chain is complete
 - Recognized follow-up **updates / patches / hotfixes** are opened automatically after the base game installation. Non-update companion/DLC/redist files are not blindly auto-run.
 - Failed or cancelled follow-up updates are preserved instead of being silently deleted.
-- **TempOverlay** provides a lightweight always-on-top temperature monitor.
+- **TempOverlay** provides a lightweight always-on-top temperature monitor, with a compact thermometer icon in the main Moses OneClick window.
 - **Restart Steam** cleanly restarts Steam and restores the main Steam window without the unwanted KDE Screen Sharing chooser seen with some SteamOS restart paths.
 - Multiple games can be selected for batch repair, artwork and removal. **Play Game** is available when exactly one game is selected.
 - Complete Removal can clean the managed game entry, Steam shortcut, artwork, OneClick metadata, compatibility data and reachable game/prefix files. External games are detected first so disconnected drives are not silently treated like local storage.
@@ -96,12 +96,12 @@ A small SteamOS/KDE helper for standalone Windows `.exe` games using **Steam / P
 ### Option 1 — Konsole
 
 ```bash
-bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.30/Moses_OneClick_Tool_Setup_V7.4.30.sh"
+bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.33/Moses_OneClick_Tool_Setup_V7.4.33.sh"
 ```
 
 ### Option 2 — Right-click → Run in Konsole
 
-1. Right-click `Moses_OneClick_Tool_Setup_V7.4.30.sh`
+1. Right-click `Moses_OneClick_Tool_Setup_V7.4.33.sh`
 2. **Properties → Permissions**
 3. Enable **Is executable**
 4. Right-click again → **Run in Konsole**
@@ -141,7 +141,7 @@ Then close and reopen Dolphin once so KDE refreshes the Moses OneClick context-m
 ## Uninstall this integration
 
 ```bash
-bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.30/Moses_OneClick_Tool_Uninstall_V7.4.30.sh"
+bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.33/Moses_OneClick_Tool_Uninstall_V7.4.33.sh"
 ```
 
 This removes the Moses OneClick helper, integration files, settings and OneClick caches. It does **not** automatically delete your installed games or existing Steam/Lutris game data unless you explicitly remove those games through the tool first.
