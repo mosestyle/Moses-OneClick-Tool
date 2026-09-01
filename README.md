@@ -143,5 +143,7 @@ Then close and reopen Dolphin once so KDE refreshes the Moses OneClick context-m
 ```bash
 bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.33/Moses_OneClick_Tool_Uninstall_V7.4.33.sh"
 ```
+
 gamescope -f -w 1280 -h 720 -W 1920 -H 1080 -- %command%
+
 This removes the Moses OneClick helper, integration files, settings and OneClick caches. It does **not** automatically delete your installed games or existing Steam/Lutris game data unless you explicitly remove those games through the tool first.
