@@ -112,12 +112,12 @@ A small SteamOS/KDE helper for standalone Windows `.exe` games using **Steam / P
 ### Option 1 — Konsole
 
 ```bash
-bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.54/Moses_OneClick_Tool_Setup_V7.4.54.sh"
+bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.55/Moses_OneClick_Tool_Setup_V7.4.55.sh"
 ```
 
 ### Option 2 — Right-click → Run in Konsole
 
-1. Right-click `Moses_OneClick_Tool_Setup_V7.4.54.sh`
+1. Right-click `Moses_OneClick_Tool_Setup_V7.4.55.sh`
 2. **Properties → Permissions**
 3. Enable **Is executable**
 4. Right-click again → **Run in Konsole**
@@ -160,12 +160,17 @@ Then close and reopen Dolphin once so KDE refreshes the Moses OneClick context-m
 ## Uninstall this integration
 
 ```bash
-bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.54/Moses_OneClick_Tool_Uninstall_V7.4.54.sh"
+bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.55/Moses_OneClick_Tool_Uninstall_V7.4.55.sh"
 ```
 
 This removes the Moses OneClick helper, integration files, settings and OneClick caches. It does **not** automatically delete your installed games or existing Steam/Lutris game data unless you explicitly remove those games through the tool first.
 
-## V7.4.54
+## V7.4.55
+
+- **StreamExtract direct installer chains:** extracted Windows setup packages are now detected before the portable-game finalizer. Moses installs the base setup first, then applies detected DLC/update EXEs in order.
+- **Numbered DLC ordering:** filenames such as `dlc1`, `dlc2`, `dlc3` are explicitly sorted numerically, so archive extraction order no longer matters.
+- Base + DLC/update chains reuse the same Proton/Lutris target; Steam shortcut/artwork finalization waits until the follow-up chain is finished.
+- If a DLC/update is cancelled or fails, later installers are not run and the extracted source is kept for safety.
 
 - **Both artwork mode is now Steam-first.** Moses tries official Steam artwork first for each capsule/hero/logo/icon slot and only uses SteamGridDB when Steam has no usable asset for that slot. Steam-only and SteamGridDB-only modes are unchanged.
 - SteamGridDB selection still preserves SteamGridDB's own result order: choice #1 first and choice #2 only if #1 cannot be downloaded.
