@@ -40,7 +40,7 @@ A small SteamOS/KDE helper for standalone Windows `.exe` games using **Steam / P
 - **Move to Game Folder + Add to Steam** — right-click an already-complete game folder in Dolphin to move the whole folder into `~/.local/share/oneclick-exe/game-prefixes/Steam-Proton/`, open the same EXE/name chooser used by **Find Game EXE + Add to Steam**, then create/verify the Steam shortcut and fetch artwork through the normal existing-game workflow. The chooser appears before the move, so cancelling leaves the source folder untouched. Existing destination names are never overwritten; Moses offers a safe numbered folder instead.
 - Folder scanning can recursively find likely installers or game executables while filtering obvious uninstallers, redistributables and helper files.
 - Smart game-name detection cleans common version, update, build, platform and release-folder noise while keeping the name editable before continuing.
-- When several possible main game executables are found, Moses OneClick lets you choose the correct one. Games that required this choice can later reopen the same EXE chooser without reinstalling the game.
+- When several possible main game executables are found, Moses OneClick lets you choose the correct one. The pencil editor can later rescan and switch the launch EXE for any managed Steam game without reinstalling it, including a manual Browse option for alternate EXEs inside the game folder.
 - Automatic artwork support:
   - **Both — Steam + SteamGridDB** is the default artwork source
   - **Steam only** and **SteamGridDB only** are also available
@@ -112,12 +112,12 @@ A small SteamOS/KDE helper for standalone Windows `.exe` games using **Steam / P
 ### Option 1 — Konsole
 
 ```bash
-bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.55/Moses_OneClick_Tool_Setup_V7.4.55.sh"
+bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.62/Moses_OneClick_Tool_Setup_V7.4.62.sh"
 ```
 
 ### Option 2 — Right-click → Run in Konsole
 
-1. Right-click `Moses_OneClick_Tool_Setup_V7.4.55.sh`
+1. Right-click `Moses_OneClick_Tool_Setup_V7.4.62.sh`
 2. **Properties → Permissions**
 3. Enable **Is executable**
 4. Right-click again → **Run in Konsole**
@@ -160,10 +160,32 @@ Then close and reopen Dolphin once so KDE refreshes the Moses OneClick context-m
 ## Uninstall this integration
 
 ```bash
-bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.55/Moses_OneClick_Tool_Uninstall_V7.4.55.sh"
+bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.62/Moses_OneClick_Tool_Uninstall_V7.4.62.sh"
 ```
 
 This removes the Moses OneClick helper, integration files, settings and OneClick caches. It does **not** automatically delete your installed games or existing Steam/Lutris game data unless you explicitly remove those games through the tool first.
+
+## V7.4.62
+
+- **Game Documents shortcut:** Settings → Storage now includes **Open Selected Game Documents**, which opens the selected Steam/Proton game's Windows Documents folder (normally `C:\users\steamuser\Documents`) for quick access to `.ini` and other config files.
+- **Prefix-aware Documents lookup:** works with Moses' internal and external Proton prefixes and falls back across Wine user-folder names for older/imported prefixes. If Proton has not created the Windows user folders yet, Moses tells you to launch the game once first.
+- **Main-window folder shortcuts:** two compact folder icons now sit beside the game selector: one opens the selected game's folder and one opens the clean **All Game Prefixes** view.
+- Existing Settings folder buttons now use the same shared folder-opening logic as the new main-window shortcuts.
+
+## V7.4.61
+
+- **Installer process cleanup:** Proton/Wine installer processes now run in their own transient user scope when SteamOS systemd support is available, so closing the visible Game Installer no longer leaves its application group alive in KDE System Monitor.
+- **Watcher lifecycle cleanup:** Steam/Proton/Lutris post-install watchers run as separate transient user services instead of remaining descendants of the desktop Game Installer.
+- **Idle Wine cleanup:** after a real installer payload has finished, Moses waits briefly and stops only that prefix's leftover Wine infrastructure (`wineserver`, `services.exe`, `explorer.exe`, etc.). It does not terminate active setup/MSI/command/game payload processes.
+- **Fallback preserved:** systems where the transient user-systemd path is unavailable automatically fall back to the V7.4.60 detached-process behavior rather than failing installation.
+
+## V7.4.60
+
+- **Always-available Steam game editor:** with exactly one managed Steam game selected, the pencil button is available even when Moses originally auto-selected the EXE.
+- **Change launch EXE without reinstalling:** the editor re-scans the managed game folder/prefix for alternate `.exe` files every time it opens.
+- **Manual EXE browse restored:** use **Browse…** to choose another `.exe` inside that game's managed folder when the automatic list does not contain the one you want.
+- Changing the EXE keeps the existing **Steam AppID, Proton prefix, game files, artwork and compatibility settings**; only the shortcut target/start directory are updated.
+- Game renaming remains in the same pencil editor and no longer depends on install-time EXE chooser history.
 
 ## V7.4.55
 
