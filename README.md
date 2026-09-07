@@ -1,7 +1,19 @@
-# Moses OneClick Tool
+# Moses OneClick Tool V7.4.68
+
+## V7.4.68 — sequential local update batches
+
+This release is based directly on V7.4.67. It adds multi-selected local updater chaining in Dolphin and deliberately does not change the base-game install, StreamExtract, artwork, dependency, UI, or optional-Lutris behavior.
+
+## V7.4.67 — cleanup without feature changes
+
+This release is based directly on V7.4.66 and deliberately keeps the same GTK interface and game-management behavior. The change is limited to process/runtime cleanup after StreamExtract/installer work.
+
+Lutris remains optional. Moses keeps V7.4.66's proven runtime selection: if Lutris is installed it may provide the GTK runtime; if it is absent, the same GTK interface runs on SteamOS' host GTK3 runtime. Steam/Proton features do not require Lutris.
+
 A small SteamOS/KDE helper for standalone Windows `.exe` games using **Steam / Proton by default**, with **Smart Automatic / Lutris** available for games that need extra compatibility help.
 
-<img width="788" height="797" alt="image" src="https://github.com/user-attachments/assets/ef8b34a0-b57b-442f-a8d6-c3a7493c8d6b" />
+<img width="663" height="630" alt="image" src="https://github.com/user-attachments/assets/49f695dc-24c1-4582-91dc-03bf8364a71a" />   <img width="548" height="427" alt="image" src="https://github.com/user-attachments/assets/286f9ebf-d08a-466c-81e3-f8fd4580f71d" />
+
 
 ## Features
 
@@ -111,12 +123,12 @@ A small SteamOS/KDE helper for standalone Windows `.exe` games using **Steam / P
 ### Option 1 — Konsole
 
 ```bash
-bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.62/Moses_OneClick_Tool_Setup_V7.4.62.sh"
+bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.67/Moses_OneClick_Tool_Setup_V7.4.67.sh"
 ```
 
 ### Option 2 — Right-click → Run in Konsole
 
-1. Right-click `Moses_OneClick_Tool_Setup_V7.4.62.sh`
+1. Right-click `Moses_OneClick_Tool_Setup_V7.4.67.sh`
 2. **Properties → Permissions**
 3. Enable **Is executable**
 4. Right-click again → **Run in Konsole**
@@ -125,6 +137,8 @@ Then close and reopen Dolphin once so KDE refreshes the Moses OneClick context-m
 
 
 ## Usage
+
+<img width="398" height="548" alt="image" src="https://github.com/user-attachments/assets/23746d3d-26be-47d8-93bc-556ba6efc248" />
 
 **Install a new game:** double-click its installer `.exe`, double-click an installer `.iso`, or open **Moses OneClick Tool → Install Game**. Choose Steam / Proton or Smart Automatic / Lutris and select internal or external storage if needed.
 
@@ -157,10 +171,29 @@ Then close and reopen Dolphin once so KDE refreshes the Moses OneClick context-m
 ## Uninstall this integration
 
 ```bash
-bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.62/Moses_OneClick_Tool_Uninstall_V7.4.62.sh"
+bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.68/Moses_OneClick_Tool_Uninstall_V7.4.68.sh"
 ```
 
 This removes the Moses OneClick helper, integration files, settings and OneClick caches. It does **not** automatically delete your installed games or existing Steam/Lutris game data unless you explicitly remove those games through the tool first.
+
+## V7.4.68
+
+- **Batch local updates from Dolphin:** select two or more Windows updater `.exe` files, right-click, then use the existing **Run as game update / patch** action. Dolphin now passes the entire selection to Moses.
+- **StreamExtract-style sequential installer chain:** Moses chooses the target game/prefix once, opens the first normal updater window, waits for it to finish, then opens the next updater automatically until the chain is complete.
+- **Version-range ordering:** selected filenames such as `1.130.1 - 1.526`, `1.526 - 2.629`, `2.629 - 2.727`, `2.727 - 2.810` are connected by matching destination-to-source versions, so Dolphin selection order does not matter. Single dotted-version updater names are sorted lowest to highest. Ambiguous/unconnected selections stop before installation rather than guessing.
+- **Same prefix throughout:** every selected updater uses the one Steam/Proton or optional Lutris game selected at the start.
+- **Stop-on-failure:** if an updater cannot launch or does not finish successfully, later selected updates are not started.
+- **No artwork on update-only batches:** this workflow never downloads, applies, replaces, or finalizes Steam artwork. Existing artwork from the separately installed base game is left untouched.
+- **Single-file behavior preserved:** right-clicking one updater still behaves like the existing one-at-a-time update action.
+- Based directly on V7.4.67; no StreamExtract extraction logic, main UI, TempOverlay, dependencies, game editor, removal, folder buttons, Steam shortcut artwork flow for base installs, or optional-Lutris behavior was otherwise changed.
+
+## V7.4.67
+
+- **Post-install application cleanup:** StreamExtract direct-installer and ISO lifecycle managers now run outside KDE's visible Moses application cgroup. Closing StreamExtract and the main tool no longer leaves the Moses application row alive just because a detached install finalizer is winding down.
+- **DLC/update Wine cleanup:** follow-up Steam/Proton installers use the same payload-aware completion cleanup as normal installs. Once the real updater has exited and only Wine infrastructure remains, Moses stops that prefix's idle Wine services instead of waiting for `wineserver -w` for hours.
+- **Background workers detached:** automatic artwork and dependency-cache workers run in their own transient user services instead of keeping the closed Moses application group alive.
+- **StreamExtract close cleanup:** closing a finished StreamExtract window stops its UI timers and explicitly exits the Qt application. Installer lifecycle work remains safe because it is already detached.
+- **No UI/feature rewrite:** V7.4.66's UI, StreamExtract extraction logic, base→DLC ordering, TempOverlay, artwork controls, game editor, dependencies, folder buttons, Steam/Proton behavior and optional Lutris backend are otherwise preserved.
 
 ## V7.4.62
 
@@ -194,3 +227,14 @@ This removes the Moses OneClick helper, integration files, settings and OneClick
 - **Both artwork mode is now Steam-first.** Moses tries official Steam artwork first for each capsule/hero/logo/icon slot and only uses SteamGridDB when Steam has no usable asset for that slot. Steam-only and SteamGridDB-only modes are unchanged.
 - SteamGridDB selection still preserves SteamGridDB's own result order: choice #1 first and choice #2 only if #1 cannot be downloaded.
 - Includes the V7.4.51 **Move to Game Folder + Add to Steam** workflow and the stable immediate-stream RAR behavior.
+
+## V7.4.64 stability recovery
+
+V7.4.64 intentionally restores the V7.4.62 GTK/Lutris-runtime implementation after the standalone V7.4.63 Qt migration caused UI and feature regressions. No game/prefix format is changed. This build prioritizes restoring the previously working UI and behavior; Lutris is again required for the GUI runtime in this recovery release.
+
+
+## V7.4.66
+- Fixes KDE/Dolphin theme inheritance when folders are opened from Moses in standalone mode.
+- Folder launch actions now strip Moses' private XDG/GTK/Qt environment before starting the host file manager.
+- Applies to selected game folder, all prefixes, Documents, artwork, and dependency cache folder launch paths.
+- No game-management, installer, StreamExtract, TempOverlay, artwork, dependency, or shortcut logic was otherwise changed from V7.4.65.
