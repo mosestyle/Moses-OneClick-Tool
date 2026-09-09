@@ -1,4 +1,18 @@
-# Moses OneClick Tool V7.4.68
+# Moses OneClick Tool V7.4.70
+
+
+## V7.4.70 — live update-chain progress
+
+This release is based directly on V7.4.68. It keeps the existing local batch-update engine and adds only a small live progress window for multi-selected update chains.
+
+- Shows the selected game name in the window title.
+- Shows every ordered update as **completed**, **currently installing**, or **pending**.
+- Shows **Update N of M** while the normal updater window is open.
+- Advances only after Moses confirms that updater has finished, then the next normal installer appears exactly as before.
+- Marks a failed step and stops the chain; later updates are not launched.
+- Closes automatically when the chain is finished.
+- Update-only batches still do **not** download or apply artwork.
+- Single-update behavior remains unchanged.
 
 ## V7.4.68 — sequential local update batches
 
@@ -171,7 +185,7 @@ Then close and reopen Dolphin once so KDE refreshes the Moses OneClick context-m
 ## Uninstall this integration
 
 ```bash
-bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.68/Moses_OneClick_Tool_Uninstall_V7.4.68.sh"
+bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.70/Moses_OneClick_Tool_Uninstall_V7.4.70.sh"
 ```
 
 This removes the Moses OneClick helper, integration files, settings and OneClick caches. It does **not** automatically delete your installed games or existing Steam/Lutris game data unless you explicitly remove those games through the tool first.
@@ -238,3 +252,10 @@ V7.4.64 intentionally restores the V7.4.62 GTK/Lutris-runtime implementation aft
 - Folder launch actions now strip Moses' private XDG/GTK/Qt environment before starting the host file manager.
 - Applies to selected game folder, all prefixes, Documents, artwork, and dependency cache folder launch paths.
 - No game-management, installer, StreamExtract, TempOverlay, artwork, dependency, or shortcut logic was otherwise changed from V7.4.65.
+
+### V7.4.70
+- Added **Open Selected Game Save Folder** under Settings → Storage.
+- Save discovery resolves the real Steam Proton compatdata prefix, including portable/Moses installs whose visible game folder does not contain `pfx`.
+- Searches common Windows save locations: Saved Games, Documents/My Games, Documents, AppData/Local, AppData/LocalLow and AppData/Roaming.
+- Opens a single clear match directly; if several likely save folders are found, Moses shows a chooser.
+- Removed the explanatory paragraph below the Game Folders buttons in the Storage tab, as requested.
