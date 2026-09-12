@@ -1,4 +1,69 @@
-# Moses OneClick Tool V7.4.70
+# Moses OneClick Tool V7.4.77
+
+
+## V7.4.77 — reliable Steam sidebar icons
+
+- Moses now repairs the **small non-Steam library/sidebar icons** during its own **Restart Steam** action, while Steam is fully closed and `shortcuts.vdf` is safe to edit.
+- Every Moses Steam-native game with a downloaded `<AppID>_icon.*` file is matched to the exact AppID in `shortcuts.vdf`, and that shortcut's `icon` field is set to the real absolute artwork path.
+- The repair updates all matching Moses games in **one atomic VDF write**, preserves the rest of each shortcut record, creates a pre-repair backup, and reads the file back to verify the icon paths before Steam is started again.
+- If artwork was already bound correctly, Moses still rewrites one clean closed-Steam snapshot so Steam gets a deterministic file to read on startup.
+- Existing artwork downloads are reused. There is no need to redownload capsules, heroes, logos, or icons just to run the repair.
+- **Download + Apply All Artworks** continues to save/queue the icon path as before; the next Moses **Restart Steam** now deterministically applies all queued/existing icons.
+- V7.4.76 StreamExtract KDialog behavior and all V7.4.75 folder-root handling are unchanged.
+
+
+## V7.4.76 — native KDialog for StreamExtract completion
+
+- When a portable/already-complete game finishes in StreamExtract and is added to Steam, the final **Game ready** confirmation now uses KDE **KDialog** instead of the PySide/Qt message box embedded in StreamExtract.
+- The completion text and Steam shortcut/artwork behavior are unchanged. This is a UI-only change to make StreamExtract match the normal Moses install flow more closely.
+
+## V7.4.75 — remember the real game root
+
+This release is based directly on V7.4.74 and keeps the separate **Game Folders** / **Proton Prefixes** views, but stops treating the selected launch EXE's parent folder as the game folder.
+
+- Moses now stores a separate **`game_root`** for each Steam / Proton game. This is the original/root folder containing the game's files, independent of the launch EXE and independent of `pfx/drive_c`.
+- **Open Selected Game Folder** opens `game_root`. A nested EXE such as `Game/Binaries/Win64/Game.exe` therefore opens `Game/`, not `Win64/`.
+- **Open All Game Folders** points every game name at that same stored root. The presentation view still uses safe symlinks only; no game files are moved or duplicated.
+- Older V7.4.x registry rows are migrated automatically. Complete-game imports recover their original folder; StreamExtract portable games recover their `Files`/top-level archive folder; normal installer games infer the best matching install directory inside Proton.
+- The pencil **Edit Game** window now also shows **Game Folder** with **Change folder…** as a manual fallback when automatic detection is not ideal. Moses only accepts a folder that contains the game's current launch EXE.
+- Changing the game folder does not reinstall anything and does not change the Steam AppID, Proton prefix, artwork, saves, dependencies, or launch EXE.
+- **Open All Proton Prefixes**, Documents, Save Folder, StreamExtract, dependency handling and all V7.4.74 behavior remain unchanged.
+
+
+## V7.4.74 — separate game folders from Proton prefixes
+
+This release is based directly on V7.4.73 and changes only folder browsing/navigation.
+
+- **Open All Game Folders** now opens a clean game-name list whose entries point to the actual game files instead of the Proton prefix root.
+- **Open Selected Game Folder** remains available for one selected game.
+- **Open All Proton Prefixes** is now a separate Storage action for technical access to `pfx`, `drive_c`, registry files and Windows user folders.
+- The compact folder button beside the game selector now opens **All Game Folders**; Proton-prefix browsing stays in Settings.
+- No game files or Proton prefixes are moved by the new game-folder view; it is presentation-only symlinks and can be rebuilt safely.
+
+
+## V7.4.73 — one VC++ v14 x86/x64 pair
+
+This release is based directly on V7.4.72 and only cleans up the Visual C++ v14 dependency inventory.
+
+- **Download official dependency set already downloads both architectures** from Microsoft: `vc_redist.x86.exe` and `vc_redist.x64.exe`. V7.4.72 could hide the cached x64 row when a game shipped another `VC_redist.x64.exe` with the same logical dependency name.
+- Moses now shows **one current VC++ v14 x86 row and one current VC++ v14 x64 row** when the Official Pack is present.
+- Older/redundant `2015-2019` or generic `2015+ (v14 family)` copies are kept safely in the cache/game folder but hidden from the chooser when the current official package for that architecture is available.
+- The official-download completion message explicitly confirms when **VC++ v14 x86 + x64 are ready**.
+- Legacy VC++ 2013/2012/2010/2008 entries remain separate because those runtimes are side-by-side generations.
+
+## V7.4.72 — clearer Visual C++ dependency labels
+
+This release is based directly on V7.4.71 and changes only dependency identification/display text. Existing install, update, StreamExtract, artwork, save-folder, prefix, and optional-Lutris behavior is unchanged.
+
+- Explicit packages such as `vcredist_2015-2019_x86.exe` now clearly show **Microsoft Visual C++ 2015–2019 Redistributable (x86)**.
+- The official current v14 pack clearly shows **Microsoft Visual C++ 2015–2026 (Latest v14) Redistributable** for x86/x64 and notes that it includes VC++ 2015–2019 support.
+- Generic `vc_redist.x86.exe` / `vc_redist.x64.exe` files whose exact package year cannot be proven from their location are shown as **2015+ (v14 family)** instead of a vague generic Visual C++ label.
+- Older packages keep their detected generation such as **2013**, **2012**, **2010**, and **2008**.
+- Truly ambiguous legacy `vcredist_*.exe` files now say **version not identified** instead of implying the wrong generation.
+
+## V7.4.71 — existing-prefix dependency/update fix
+
+This release is based directly on V7.4.70. It fixes existing-game dependency and update actions when Steam already has a normal real numeric `compatdata/<AppID>` prefix. Moses now reuses that exact existing prefix instead of trying to migrate it into a Moses-owned named prefix. This preserves saves/configuration and avoids the “Steam already has a real compatdata folder” error. New-game installation behavior is unchanged.
 
 
 ## V7.4.70 — live update-chain progress
@@ -137,12 +202,12 @@ A small SteamOS/KDE helper for standalone Windows `.exe` games using **Steam / P
 ### Option 1 — Konsole
 
 ```bash
-bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.67/Moses_OneClick_Tool_Setup_V7.4.67.sh"
+bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.77/Moses_OneClick_Tool_Setup_V7.4.77.sh"
 ```
 
 ### Option 2 — Right-click → Run in Konsole
 
-1. Right-click `Moses_OneClick_Tool_Setup_V7.4.67.sh`
+1. Right-click `Moses_OneClick_Tool_Setup_V7.4.77.sh`
 2. **Properties → Permissions**
 3. Enable **Is executable**
 4. Right-click again → **Run in Konsole**
@@ -185,7 +250,7 @@ Then close and reopen Dolphin once so KDE refreshes the Moses OneClick context-m
 ## Uninstall this integration
 
 ```bash
-bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.70/Moses_OneClick_Tool_Uninstall_V7.4.70.sh"
+bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.77/Moses_OneClick_Tool_Uninstall_V7.4.77.sh"
 ```
 
 This removes the Moses OneClick helper, integration files, settings and OneClick caches. It does **not** automatically delete your installed games or existing Steam/Lutris game data unless you explicitly remove those games through the tool first.
