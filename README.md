@@ -1,7 +1,7 @@
-# Moses OneClick Tool V7.4.77
+# Moses OneClick Tool V7.4.78
 
 
-## V7.4.77 — reliable Steam sidebar icons
+## V7.4.78 — reliable Steam sidebar icons
 
 - Moses now repairs the **small non-Steam library/sidebar icons** during its own **Restart Steam** action, while Steam is fully closed and `shortcuts.vdf` is safe to edit.
 - Every Moses Steam-native game with a downloaded `<AppID>_icon.*` file is matched to the exact AppID in `shortcuts.vdf`, and that shortcut's `icon` field is set to the real absolute artwork path.
@@ -138,6 +138,7 @@ A small SteamOS/KDE helper for standalone Windows `.exe` games using **Steam / P
   - Downloads and applies **Capsule, Wide Capsule, Hero, Logo and Icon** artwork
   - Artwork is cached so unchanged images are not downloaded again
 - GitHub dependency downloads accept normal GitHub file-page links (`.../blob/...`) as well as raw/release URLs; Vulkan component ZIPs are preserved intact in their own cache folder.
+- **Game Tools** — run launchers, configuration utilities, Mod Organizer 2, and other Windows EXEs inside an installed game's existing Steam Proton or Lutris Wine prefix without changing the main game shortcut. Tools can be saved per game, launched once, or started from Dolphin with **Run as game tool**.
 - **Moses OneClick Tool** provides one clean GUI with:
   - Install Game
   - **Play Game**
@@ -202,12 +203,12 @@ A small SteamOS/KDE helper for standalone Windows `.exe` games using **Steam / P
 ### Option 1 — Konsole
 
 ```bash
-bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.77/Moses_OneClick_Tool_Setup_V7.4.77.sh"
+bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.78/Moses_OneClick_Tool_Setup_V7.4.78.sh"
 ```
 
 ### Option 2 — Right-click → Run in Konsole
 
-1. Right-click `Moses_OneClick_Tool_Setup_V7.4.77.sh`
+1. Right-click `Moses_OneClick_Tool_Setup_V7.4.78.sh`
 2. **Properties → Permissions**
 3. Enable **Is executable**
 4. Right-click again → **Run in Konsole**
@@ -250,7 +251,7 @@ Then close and reopen Dolphin once so KDE refreshes the Moses OneClick context-m
 ## Uninstall this integration
 
 ```bash
-bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.77/Moses_OneClick_Tool_Uninstall_V7.4.77.sh"
+bash "$HOME/Downloads/Moses_OneClick_Tool_V7.4.78/Moses_OneClick_Tool_Uninstall_V7.4.78.sh"
 ```
 
 This removes the Moses OneClick helper, integration files, settings and OneClick caches. It does **not** automatically delete your installed games or existing Steam/Lutris game data unless you explicitly remove those games through the tool first.
